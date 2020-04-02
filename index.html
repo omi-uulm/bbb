@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Document</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="description" content="Description">
+  <meta name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <!-- <link rel="stylesheet" href="//unpkg.com/docsify/lib/themes/vue.css"> -->
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-simple.css">
+
+  <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+  <script src="https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.min.js"></script>
+  <!-- Theme: Defaults -->
+  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-defaults.css"> -->
+</head>
+<style>
+  :root {
+    --theme-color: #7a99ac;
+    --cover-background-color: #7a99ac;
+    --cover-heading-color: #333;
+    --content-max-width: 95%;
+    --sidebar-width: 20rem;
+    --sidebar-nav-link-before-content-l3: "■";
+    --sidebar-nav-link-before-color-l3: #a9a28d;
+  }
+
+  .mermaid {
+    padding: 3rem;
+  }
+
+  /* svg{
+    max-width: inherit!important;
+  } */
+  .cluster rect {
+    fill: #e5e3d55b !important;
+    stroke: #aeab89 !important;
+  }
+
+  .node rect {
+    fill: #90b1c2 !important;
+    stroke: #79a0b3 !important;
+  }
+
+  .node rect+.label text {
+    fill: #fff !important;
+  }
+</style>
+
+<body>
+  <div id="app"></div>
+  <script>
+    var config = {
+      startOnLoad: false,
+      theme: "neutral",
+      flowchart: {
+        useMaxWidth: true,
+        htmlLabels: false,
+        curve: 'cardinal',
+      },
+      securityLevel: 'loose',
+    };
+    mermaid.initialize(config);
+  </script>
+  <script>
+    var num = 0;
+    window.$docsify = {
+      name: 'UULM BBB',
+      repo: 'https://omi-gitlab.e-technik.uni-ulm.de/kiz/bbb',
+      loadSidebar: true,
+      basePath: '/bbb/documentation/',
+      homepage: 'about/background.md',
+      auto2top: true,
+      subMaxLevel: 3,
+      name: 'UULM BBB',
+      coverpage: true,
+      markdown: {
+        renderer: {
+          code: function (code, lang) {
+            if (lang === "mermaid") {
+              return (
+                '<div class="mermaid">' + mermaid.render('mermaid-svg-' + num++, code) + "</div>"
+              );
+            }
+            return this.origin.code.apply(this, arguments);
+          }
+        }
+      },
+      plugins: [
+        function (hook) {
+          hook.doneEach(function () {
+            document.querySelectorAll('.mermaid svg').forEach(e => {
+              e.style.height = e.clientHeight;
+              svgPanZoom(e, {
+                zoomEnabled: true,
+                controlIconsEnabled: true,
+                contain: true,
+                fit: true,
+                center: true,
+                mouseWheelZoomEnabled: false
+              });
+            });
+          });
+        }
+      ]
+    }
+  </script>
+  <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+  <!-- GITLAB CORNER -->
+  <style>
+    .gitlab-corner-wrapper {
+      overflow: hidden;
+      width: 100px;
+      height: 100px;
+      position: fixed;
+      top: 0;
+      right: 0
+    }
+
+    .gitlab-corner {
+      position: absolute;
+      top: -16px;
+      right: -50px;
+      transform: rotate(45deg);
+      background: #7a99ac;
+      border: 44px solid #7a99ac;
+      border-bottom: none;
+      border-top: #7a99ac solid 16px
+    }
+
+    .gitlab-corner svg {
+      width: 60px;
+      height: 60px;
+      margin-bottom: -4px
+    }
+
+    .cls-g-1 {
+      fill: #aaa
+    }
+
+    .cls-g-2 {
+      fill: #888
+    }
+
+    .cls-g-3 {
+      fill: #eee
+    }
+
+    .gitlab-corner:hover .cls-g-1 {
+      animation: greyCycle .6s
+    }
+
+    .gitlab-corner:hover .cls-g-2 {
+      animation: greyCycleMid .6s
+    }
+
+    .gitlab-corner:hover .cls-g-3 {
+      animation: greyCycleEnd .6s
+    }
+
+    @keyframes greyCycle {
+
+      100%,
+      15%,
+      60% {
+        fill: #eee
+      }
+
+      30%,
+      75% {
+        fill: #888
+      }
+
+      45%,
+      90% {
+        fill: #aaa
+      }
+    }
+
+    @keyframes greyCycleMid {
+
+      100%,
+      15%,
+      60% {
+        fill: #888
+      }
+
+      30%,
+      75% {
+        fill: #aaa
+      }
+
+      45%,
+      90% {
+        fill: #eee
+      }
+    }
+
+    @keyframes greyCycleEnd {
+
+      100%,
+      15%,
+      60% {
+        fill: #aaa
+      }
+
+      30%,
+      75% {
+        fill: #eee
+      }
+
+      45%,
+      90% {
+        fill: #888
+      }
+    }
+
+    @media (max-width:500px) {
+
+      .gitlab-corner:hover .cls-g-1,
+      .gitlab-corner:hover .cls-g-2,
+      .gitlab-corner:hover .cls-g-3 {
+        animation: none
+      }
+
+      .gitlab-corner .cls-g-1 {
+        animation: greyCycle .6s
+      }
+
+      .gitlab-corner .cls-g-2 {
+        animation: greyCycleMid .6s
+      }
+
+      .gitlab-corner .cls-g-3 {
+        animation: greyCycleEnd .6s
+      }
+    }
+  </style>
+  <div class="gitlab-corner-wrapper"><a href="https://omi-gitlab.e-technik.uni-ulm.de/kiz/bbb" class="gitlab-corner"
+      aria-label="View source on GitLab"><svg id="logo_art" data-name="logo art" xmlns="https://www.w3.org/2000/svg"
+        viewBox="0 0 586 559">
+        <g id="g44">
+          <path id="path46" class="cls-g-1"
+            d="M461.17,301.83l-18.91-58.12L404.84,128.43a6.47,6.47,0,0,0-12.27,0L355.15,243.64H230.82L193.4,128.43a6.46,6.46,0,0,0-12.26,0L143.78,243.64l-18.91,58.19a12.88,12.88,0,0,0,4.66,14.39L293,435,456.44,316.22a12.9,12.9,0,0,0,4.73-14.39" />
+        </g>
+        <g id="g48">
+          <path id="path50" class="cls-g-2" d="M293,434.91h0l62.16-191.28H230.87L293,434.91Z" />
+        </g>
+        <g id="g56">
+          <path id="path58" class="cls-g-1" d="M293,434.91,230.82,243.63h-87L293,434.91Z" />
+        </g>
+        <g id="g64">
+          <path id="path66" class="cls-g-3"
+            d="M143.75,243.69h0l-18.91,58.12a12.88,12.88,0,0,0,4.66,14.39L293,435,143.75,243.69Z" />
+        </g>
+        <g id="g72">
+          <path id="path74" class="cls-g-2"
+            d="M143.78,243.69h87.11L193.4,128.49a6.47,6.47,0,0,0-12.27,0l-37.35,115.2Z" />
+        </g>
+        <g id="g76">
+          <path id="path78" class="cls-g-1" d="M293,434.91l62.16-191.28H442.3L293,434.91Z" />
+        </g>
+        <g id="g80">
+          <path id="path82" class="cls-g-3"
+            d="M442.24,243.69h0l18.91,58.12a12.85,12.85,0,0,1-4.66,14.39L293,434.91l149.2-191.22Z" />
+        </g>
+        <g id="g84">
+          <path id="path86" class="cls-g-2" d="M442.28,243.69h-87.1l37.42-115.2a6.46,6.46,0,0,1,12.26,0l37.42,115.2Z" />
+        </g>
+      </svg></a></div>
+</body>
+
+</html>
