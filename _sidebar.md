@@ -9,7 +9,11 @@
   - [Process](deployment/process.md)
   
 - How-To
-  - [How To](how-to/)
+  - [Set-up](how-to/setup.md)
+  - [Monitoring](how-to/monitoring.md)
+  - [Scale](how-to/scale.md)
+  - [Backup](how-to/backup.md)
+  - [Test](how-to/test.md)
 
 - **Links**
 - [![BBB](https://bigbluebutton.org/wp-content/themes/bigbluebutton/library/images/apple-touch-icon.png ':size=15')  BigBlueButton](https://bigbluebutton.org/)
