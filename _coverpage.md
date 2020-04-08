@@ -13,4 +13,3 @@
 
 [GitLab](https://omi-gitlab.e-technik.uni-ulm.de/kiz/bbb)
 [Get Started](about/background)
-

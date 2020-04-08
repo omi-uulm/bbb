@@ -1,3 +1,3 @@
-# Get in touch 
+# Get in touch
 
-send an email to bbb-support@uni-ulm.de
+Send an E-Mail to bbb-support@uni-ulm.de

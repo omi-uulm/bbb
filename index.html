@@ -14,8 +14,15 @@
 
   <script src="//cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
   <script src="https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.min.js"></script>
-  <!-- Theme: Defaults -->
-  <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsify-themeable@0/dist/css/theme-defaults.css"> -->
+  <script type="text/javascript" id="cookieinfo"
+    src="//cookieinfoscript.com/js/cookieinfo.min.js"
+    data-bg="#7a99ac"
+    data-fg="#FFFFFF"
+    data-link="#F1D600"
+    data-cookie="CookieInfoScript"
+    data-text-align="left"
+    data-close-text="Accept">
+  </script>
 </head>
 <style>
   :root {
@@ -48,6 +55,9 @@
   .node rect+.label text {
     fill: #fff !important;
   }
+  .app-nav.no-badge {
+    margin-right: 4em;
+  }
 </style>
 
 <body>
@@ -71,8 +81,9 @@
       name: 'UULM BBB',
       // repo: 'https://omi-gitlab.e-technik.uni-ulm.de/kiz/bbb',
       loadSidebar: true,
-      basePath: '/bbb/documentation/',
+      // basePath: '/bbb/documentation/',
       homepage: 'about/background.md',
+      loadNavbar: true,
       auto2top: true,
       subMaxLevel: 3,
       name: 'UULM BBB',
@@ -111,6 +122,9 @@
   <script src="//unpkg.com/docsify/lib/docsify.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/emoji.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-bash.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs/components/prism-yaml.min.js"></script>
+  
   <!-- GITLAB CORNER -->
   <style>
     .gitlab-corner-wrapper {
