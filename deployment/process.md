@@ -1,27 +1,6 @@
 # Process
 
-## Requirements
-
-* `docker`
-* `docker-compose`
-* `make`
-
-## Configuration
-
-`BW_OS_USERNAME` and `BW_OS_PASSWORD` have to set. They can either be exported on your current shell, or set in the (not versioned) `.env` file in this repositories root directory. Example
-```bash
-BW_OS_USERNAME=MY_BW_OS_USERNAME
-BW_OS_PASSWORD=MY_BW_OS_PASSWORD
-```
-These are your OpenStack login credentials
-
-## Running
-
-```bash
-make bwcloud-infrastructure
-```
-
-## Process overview
+## Overview
 
 Broadly speaking, the deployment process is divided into three parts. Everything is handled by Ansible:
 
@@ -30,10 +9,10 @@ Broadly speaking, the deployment process is divided into three parts. Everything
    * See Server bootstrapping in OpenStack
 2. Bootstrapping a container orchestrator (in this case Rancher1.6)
    * See Server bootstrapping in OpenStack -> `role_server_rancher`
-3. Leveraging this container orchestrator to deploy the acutal application
-   * See Application bootrapping in Rancher
+3. Leveraging this container orchestrator to deploy the actual application
+   * See Application bootstrapping in Rancher
 
-### Security settings in OpenStack
+## Security settings in OpenStack
 
 Fine grained security groups for each service and server are created to only allow access to specific ports. You should supply a private and public key named `infrastructure/key` and `infrastructure/key.pub`, to upload it to OpenStack. This key (public) will be deployed to each VM using cloud-init (CoreOS ignition).
 
@@ -56,9 +35,9 @@ graph TD;
   sec_rancher --> sec_bbb --> sec_greenlight --> sec_scalelite --> sec_coturn --> sec_monitoring --> key --> net --> server_rancher[Server Setup]
 ```
 
-### Server bootstrapping in OpenStack
+## Server bootstrapping in OpenStack
 
-To consquently apply the immutable infrastructure concept we make use of CoreOS and Ignition. Upon first boot, CoreOS applies configuration received from ignition to configure the operating system. This includes, files, services, network configuration, mounts and possibly more.
+To consequently apply the immutable infrastructure concept we make use of CoreOS and Ignition. Upon first boot, CoreOS applies configuration received from ignition to configure the operating system. This includes, files, services, network configuration, mounts and possibly more.
 
 The rancher server is a special case, since the via ignition bootstrapped application "Rancher" has to be configured. This is done by applying the rancher role, which uses curl and the Rancher API to apply this configuration. Here the following items are configured:
 
@@ -95,9 +74,9 @@ graph LR;
     previous[Security settings in OpenStack] --> server_rancher --> server_bbb --> server_greenlight --> server_scalelite --> server_monitoring -->application_bwcloud
 ```
 
-### Application bootrapping in Rancher
+## Application bootrapping in Rancher
 
-The application deployment simply applies all appliation descriptions in `infrastructure/apps`. Every application consists of a `*.yml` and a corresponding `*-rancher.yml` file. Some services are registed to consul to make use of prometheus' service discovery and to implment a custom service discovery for all bbb instances.
+The application deployment simply applies all application descriptions in `infrastructure/apps`. Every application consists of a `*.yml` and a corresponding `*-rancher.yml` file. Some services are registered to consul to make use of prometheus' service discovery and to implement a custom service discovery for all bbb instances.
 
 ```mermaid
 graph LR;
@@ -121,19 +100,19 @@ graph LR;
     application_bwcloud --> feedback --> bbb --> greenlight --> scalelite --> metrics --> consul --> registrator --> postgres --> coturn
 ```
 
-### Application Architecture
+## Application Architecture
 
 ```mermaid
 graph LR;
     subgraph Feedback
-      service_feedback-->|configurated by|service_feedback-config
+      service_feedback-->|configured by|service_feedback-config
       service_feedback-config
     end
     subgraph coturn
       service_coturn-conf
       service_coturn-certs
-      service_coturn-->|configurated by|service_coturn-conf
-      service_coturn-->|configurated by|service_coturn-certs
+      service_coturn-->|configured by|service_coturn-conf
+      service_coturn-->|configured by|service_coturn-certs
     end
     subgraph BBB * X
       service_bbb-->|STUN/TURN lookup|service_coturn
@@ -168,10 +147,10 @@ graph LR;
       service_monitoring_lb-->|ingress|service_grafana
       service_monitoring_lb-->|ingress|service_prometheus
       service_nodeexporter
-      service_processexporter-->|configurated by|service_processexporter-config
-      service_grafana-->|configurated by|service_grafana-conf
+      service_processexporter-->|configured by|service_processexporter-config
+      service_grafana-->|configured by|service_grafana-conf
       service_grafana-conf
-      service_prometheus-->|configurated by|service_prometheus-conf
+      service_prometheus-->|configured by|service_prometheus-conf
       service_prometheus-->|queries|service_processexporter
       service_prometheus-->|queries|service_nodeexporter
       service_prometheus-->|queries|service_bbb-exporter

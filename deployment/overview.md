@@ -19,23 +19,23 @@ The application is again triggered by ansible and then actually deployed over Ra
 * bbb-greenlight consisting of
   * greenlight: the actual greenlight container
   * lb-greenlight: a load balancer providing an entry point for greenlight and mainly used for SSL termination
-  * bbb-scalelite realising the scalelite fuctionality consisting of the following containers
+  * bbb-scalelite realising the scalelite functionality consisting of the following containers
   * scalelite-api: the scalelite-api component as [described here](https://github.com/blindsidenetworks/scalelite/blob/master/docker-README.md)
   * scalelite-poller: the scalelite poller component as  [described here](https://github.com/blindsidenetworks/scalelite/blob/master/docker-README.md)
   * scalelite-redis: a redis instance used by scalelite as  [described here](https://github.com/blindsidenetworks/scalelite/blob/master/docker-README.md)
   * scalelite-registrator: a custom-built component that polls consul and registers all BBB instances with the load balancer; it further enables these servers.
   * The postgres instance required by Scalelite is contained in a different stack.
-* consul: a stack realising service discovery for Prometheus and scalelite consiting of the following components
+* consul: a stack realising service discovery for Prometheus and scalelite consisting of the following components
   * lb: a load balancer proving gateway functionality. Should be disabled in production environments.
-  * consul: the consul instance. Consule is populated by ansible upon deployment.
-* coturn: a stack provding a coturn server for BBB.
+  * consul: the consul instance. Consul is populated by ansible upon deployment.
+* coturn: a stack providing a coturn server for BBB.
 * feedback: a stack providing the functionality to collect [BBB user feedback](https://docs.bigbluebutton.org/2.2/customize.html#collect-feedback-from-the-users)
 * metrics: a stack providing monitoring functionality. This stack consists of the following containers.
   * grafana: a Dashboard for showing monitoring metrics (cpu load, ...)
   * nodeexporter: a container running on each virtual machine and providing system metrics including cpu load, network load, and memory consumption. BBB-specific metrics are captured in the BBB stack.
   * processexporter: a container running on each virtual machine and providing per process system metrics including cpu load, network load, and memory consumption.
   * prometheus: data sink for the prometheus monitoring
-* postgres: a stack provinding a postgres database management system for greenlight and scalelite.
+* postgres: a stack providing a postgres database management system for greenlight and scalelite.
 * ssh-keys: a stack for applying a set of ssh keys to the virtual machines (overcoming an shortcoming in OpenStack with handling multiple SSH keys). It consists of a single container with `started-once` semantics.
 
 ## Our Repository Structure
@@ -49,14 +49,14 @@ For our deployment, we try to use as many upstream components unchanged. This, h
   * rancher-cli: a repo implementing the rancher-cli
 * config
   * coturn-certs: Contains the SSL certificates for coturn to enable TLS on STUN and TURN. This is a coturn app sidekick
-  * cortun: configuration file including minor templating. This is a coturn app sidekick
+  * coturn: configuration file including minor templating. This is a coturn app sidekick
   * nginx-feedback: NGINX configuration for feedback collection. This is a sidekick for a generic nginx container
   * update-ssh-keys: place ssh keys for server access here. deploy pipeline via rancher-cli has to be started manual
   * grafana: Provisioning for grafana. Contains datasources and dashboards. This is a sidekick for a generic grafana container.
   * prometheus: Configuration for prometheus. Contains the sevice discovery adapter consuming consul to find its scrape targets. This is a sidekick for a generic prometheus container.
   * processexporter: Configuration for processexporter. Defines a pattern for the processes to be scraped. This is a sidekick for the processexporter app.
-* application-single: Vollständige BBB Anwendung inklusive Konfigurationstemplates
-* deployment: Vollständiges BBB Deployment auf Basis von Ansible
+* application-single: Monolithic BBB application including configuration templates
+* deployment: Complete BBB deployment based on ansible
 * tools
   * bbb-feedback-parser: repo with script for parsing bbb feedback logs to csv
 * state

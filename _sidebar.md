@@ -7,6 +7,8 @@
 
   - [Overview](deployment/overview.md)
   - [Process](deployment/process.md)
+  - [Run](deployment/run.md)
+  - [Application only](deployment/application_only.md)
   
 - How-To
   - [Set-up](how-to/setup.md)
