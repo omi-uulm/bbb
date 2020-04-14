@@ -2,7 +2,7 @@
 
 ![logo](logo.png ':size=200x200')
 
-# UULM BBB <small>beta3</small>
+# UULM BBB <small>beta4</small>
 
 > The BigBlueButton installation of Ulm University
 
