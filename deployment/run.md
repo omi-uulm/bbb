@@ -96,6 +96,9 @@ greenlight_secret_base: #
 ldap_password: #
 grafana_password: #
 docker_registry_password: #
+sip_configuration:
+  - { enabled : "true",  number: "xxx", password: "xxx" }
+  - { enabled : "false", number: "xxx", password: "xxx" }
 ```
 
 ## Running

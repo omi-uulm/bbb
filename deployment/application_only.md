@@ -26,7 +26,7 @@ services:
  version: '2'
 services:
   bbb:
-    image: omi-registry.e-technik.uni-ulm.de/kiz/bbb/application-single:beta3
+    image: omi-registry.e-technik.uni-ulm.de/kiz/bbb/application-single:beta4
     privileged: true
     environment:
       - BBB_LOCALIP=${BBB_LOCALIP}
@@ -40,6 +40,9 @@ services:
       - BBB_STUN_PORT=3478
       - BBB_STUN_SECRET=${BBB_STUN_SECRET}
       - BBB_PAD_KEY=${BBB_PAD_KEY}
+      - BBB_SIP_ENABLED=${BBB_SIP_ENABLED}
+      - BBB_PHONE_USERNAME=${BBB_PHONE_USERNAME}
+      - BBB_PHONE_PASSWORD=${BBB_PHONE_PASSWORD}
 
     tmpfs:
       - /run
@@ -336,6 +339,13 @@ services:
       io.rancher.scheduler.affinity:host_label: name=${BBB_HOST}
       io.rancher.container.start_once: 'true'
       io.rancher.container.pull_image: always
+    environment:
+      GF_AUTH_TOKEN: ${GF_AUTH_TOKEN}
+      USERS: ${USERS}
+      USER_NAME_1: ${USER_NAME_1}
+      USER_LOGIN_1: ${USER_LOGIN_1}
+      USER_EMAIL_1: ${USER_EMAIL_1}
+      USER_PASSWORD_1: ${USER_PASSWORD_1}
   processexporter-config:
     image: omi-registry.e-technik.uni-ulm.de/kiz/bbb/config/processexporter
     labels:
@@ -371,6 +381,7 @@ services:
     environment:
       RAILS_LOG_TO_STDOUT: 'true'
       REDIS_URL: redis://scalelite-redis:6379
+      INTERVAL: 20
     stdin_open: true
     tty: true
     labels:
@@ -384,7 +395,7 @@ services:
       RAILS_LOG_TO_STDOUT: 'true'
       REDIS_URL: redis://scalelite-redis:6379
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
-      URL_HOST: "{{ URL_HOST }}"
+      URL_HOST: ${URL_HOST}
     stdin_open: true
     tty: true
     labels:
